@@ -363,7 +363,7 @@ typedef struct
   {
     uint8_t passkey[6];
     uint8_t oob_key[16];
-  } key;
+  } _aci_packed_ key;
 } _aci_packed_ aci_cmd_params_set_key_t;
 
 ACI_ASSERT_SIZE(aci_cmd_params_set_key_t, 17);
@@ -427,7 +427,7 @@ typedef struct
     aci_cmd_params_broadcast_t                  broadcast;
     aci_cmd_params_close_remote_pipe_t          close_remote_pipe;
 
-  } params;
+  } _aci_packed_ params;
 } _aci_packed_ aci_cmd_t;
 
 #endif // ACI_CMDS_H__

@@ -64,15 +64,17 @@
  * versions of the gcc (C) compiler it only works right with g++ (C++) compiler
  * versions that are version 4 or newer.
  */
-#ifdef __GNUC__
-#  if __GNUC__ >= 4
-#    define _aci_packed_ __attribute__((__packed__))
-#  else
-#    error "older g++ versions don't handle packed attribute in typedefs"
-#  endif
-#else
-#  define _aci_packed_
-#endif
+//#ifdef __GNUC__
+//#  if __GNUC__ >= 4
+//#    define _aci_packed_ __attribute__((__packed__))
+//#  else
+//#    error "older g++ versions don't handle packed attribute in typedefs"
+//#  endif
+//#else
+//#  define _aci_packed_
+//#endif
+
+#define _aci_packed_ __attribute__((__packed__))
 
 /*
  * Define a macro that compares the size of the first parameter to the integer

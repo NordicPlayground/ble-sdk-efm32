@@ -23,11 +23,11 @@
 @brief Implementation of the ACI transport layer module
 */
 
-#include <SPI.h>
+//#include <SPI.h>
 #include "hal_platform.h"
 #include "hal_aci_tl.h"
 #include "aci_queue.h"
-#include <avr/sleep.h>
+//#include <avr/sleep.h>
 
 /*
 PIC32 supports only MSbit transfer on SPI and the nRF8001 uses LSBit
@@ -41,6 +41,8 @@ The outgoing command and the incoming event needs to be converted
     //For ChipKit as the transmission has to be reversed, the next definitions have to be added
     #define REVERSE_BITS(byte) (((reverse_lookup[(byte & 0x0F)]) << 4) + reverse_lookup[((byte & 0xF0) >> 4)])
     static const uint8_t reverse_lookup[] = { 0, 8,  4, 12, 2, 10, 6, 14,1, 9, 5, 13,3, 11, 7, 15 };
+#elif defined(__EFM32__)
+    //For EFM32 add nothing
 #endif
 
 static void m_aci_data_print(hal_aci_data_t *p_data);
@@ -65,14 +67,14 @@ void m_aci_data_print(hal_aci_data_t *p_data)
 {
   const uint8_t length = p_data->buffer[0];
   uint8_t i;
-  Serial.print(length, DEC);
-  Serial.print(" :");
+  printf("%d", length);
+  printf(" :");
   for (i=0; i<=length; i++)
   {
-    Serial.print(p_data->buffer[i], HEX);
-    Serial.print(F(", "));
+    printf("%x", p_data->buffer[i]);
+    printf(", ");
   }
-  Serial.println(F(""));
+  printf("\n");
 }
 
 /*
@@ -309,7 +311,7 @@ bool hal_aci_tl_event_get(hal_aci_data_t *p_aci_data)
   {
     if (aci_debug_print)
     {
-      Serial.print(" E");
+      printf("E");
       m_aci_data_print(p_aci_data);
     }
 
@@ -338,24 +340,29 @@ void hal_aci_tl_init(aci_pins_t *a_pins, bool debug)
   /* Needs to be called as the first thing for proper intialization*/
   m_aci_pins_set(a_pins);
 
-  /*
-  The SPI lines used are mapped directly to the hardware SPI
-  MISO MOSI and SCK
-  Change here if the pins are mapped differently
-
-  The SPI library assumes that the hardware pins are used
-  */
-  SPI.begin();
-  //Board dependent defines
-  #if defined (__AVR__)
-    //For Arduino use the LSB first
-    SPI.setBitOrder(LSBFIRST);
-  #elif defined(__PIC32MX__)
-    //For ChipKit use MSBFIRST and REVERSE the bits on the SPI as LSBFIRST is not supported
-    SPI.setBitOrder(MSBFIRST);
-  #endif
-  SPI.setClockDivider(a_pins->spi_clock_divider);
-  SPI.setDataMode(SPI_MODE0);
+  /* Setup and init SPI*/
+  pinMode(a_pins->miso_pin, INPUT);
+  pinMode(a_pins->mosi_pin, OUTPUT);
+  pinMode(a_pins->sck_pin, OUTPUT);
+  
+  USART_InitSync_TypeDef initSync = {
+    .enable = usartEnable,          //enable RX and TX
+    .refFreq = 0,                   //use currently configured clock
+    .baudrate = 9600,
+    .databits = usartDatabits8,
+    .master = 1,
+    .msbf = 0,
+    .clockMode = usartClockMode0,   //clock idle low, sample on rising edge
+    .prsRxEnable = 0,
+    .prsRxCh = usartPrsRxCh0,
+    .autoTx = 0
+  };
+  
+  USART_InitSync(USART1, &initSync);
+  USART1->ROUTE |= USART_ROUTE_LOCATION_LOC1 | 
+                   USART_ROUTE_RXPEN | 
+                   USART_ROUTE_TXPEN | 
+                   USART_ROUTE_CLKPEN;
 
   /* Initialize the ACI Command queue. This must be called after the delay above. */
   aci_queue_init(&aci_tx_q);
@@ -409,7 +416,7 @@ bool hal_aci_tl_send(hal_aci_data_t *p_aci_cmd)
 
     if (aci_debug_print)
     {
-      Serial.print("C"); //ACI Command
+      printf("C"); //ACI Command
       m_aci_data_print(p_aci_cmd);
     }
   }
@@ -428,6 +435,8 @@ static uint8_t spi_readwrite(const uint8_t aci_byte)
     uint8_t tmp_bits;
     tmp_bits = SPI.transfer(REVERSE_BITS(aci_byte));
 	return REVERSE_BITS(tmp_bits);
+#elif defined(__EFM32__)
+    return efm_spi_readwrite(aci_byte);
 #endif
 }
 

@@ -71,6 +71,33 @@
 	
 	//Redefine the function for reading from flash in ChipKit
 	#define memcpy_P        memcpy
+#elif defined (__EFM32__)
+    #include <stdint.h>
+    #include <stdbool.h>
+    #include <stdio.h>
+    #include <string.h>
+
+    #include "em_usart.h"
+
+    #define INPUT        0
+    #define INPUT_PULLUP 1
+    #define OUTPUT       2
+
+    #define LOW 0
+    #define HIGH 1
+
+    void delay(uint32_t dlyTicks);
+    void setupSWO(void);
+    void enableClocksForAci(void);
+    void enableClocksForAci(void);
+    void pinMode(uint8_t pin, uint8_t pinMode);
+    uint8_t digitalRead(uint8_t pin);
+    void digitalWrite(uint8_t pin, uint8_t value);
+    uint8_t efm_spi_readwrite(const uint8_t aci_byte);
+    void attachInterrupt(uint8_t interruptNumber, void (*handlerPtr)(void), uint8_t mode);
+    void detachInterrupt(uint8_t interruptNumber);
+    void noInterrupts(void);
+    void interrupts(void);
 #endif
 
 #endif /* PLATFORM_H__ */

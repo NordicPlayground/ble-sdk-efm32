@@ -217,7 +217,7 @@ typedef struct
     aci_evt_cmd_rsp_params_get_battery_level_t  get_battery_level;
     aci_evt_cmd_rsp_params_get_temperature_t    get_temperature;
     uint8_t                                     padding[29];  
-  } params;
+  } _aci_packed_ params;
 } _aci_packed_ aci_evt_params_cmd_rsp_t;
 
 ACI_ASSERT_SIZE(aci_evt_params_cmd_rsp_t, 31);
@@ -334,7 +334,7 @@ typedef struct
   union 
   {
     error_data_t  error_data;
-  } params;
+  } _aci_packed_ params;
 } _aci_packed_ aci_evt_params_pipe_error_t;
 
 /**
@@ -389,7 +389,7 @@ typedef struct
     aci_evt_params_pipe_error_t                         pipe_error;
     aci_evt_params_display_passkey_t                    display_passkey;
     aci_evt_params_key_request_t                        key_request;
-  } params;
+  } _aci_packed_ params;
 } _aci_packed_ aci_evt_t;
 
 ACI_ASSERT_SIZE(aci_evt_t, 33);
