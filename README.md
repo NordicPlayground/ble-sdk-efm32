@@ -2,7 +2,7 @@ ble-sdk-efm32-internal
 ======================
 
 Port of the Bluetooth low energy SDK for Arduino to the EFM32.
-It has been tested using the EFM32 Leopard Gecko Starter Kit(STK3600).
+It has been tested using nRF2741 module connected to EFM32 Leopard Gecko Starter Kit(STK3600).
 
 Port is not backward compatible with Arduino, so all Arduino related files were deleted.
 If you are interested in those files please check original repo: [ble-sdk-arduino](https://github.com/NordicSemiconductor/ble-sdk-arduino)
