@@ -51,7 +51,8 @@ static struct aci_state_t aci_state;
 
 static hal_aci_evt_t aci_data;
 
-static uint8_t echo_data[] = { 0x00, 0xaa, 0x55, 0xff, 0x77, 0x55, 0x33, 0x22, 0x11, 0x44, 0x66, 0x88, 0x99, 0xbb, 0xdd, 0xcc, 0x00, 0xaa, 0x55, 0xff };
+static uint8_t echo_data[] = { 0x00, 0xaa, 0x55, 0xff, 0x77, 0x55, 0x33, 0x22, 0x11, 0x44, 
+                               0x66, 0x88, 0x99, 0xbb, 0xdd, 0xcc, 0x00, 0xaa, 0x55, 0xff };
 static uint8_t aci_echo_cmd = 0;
 
 #define NUM_ECHO_CMDS 3
@@ -175,7 +176,8 @@ int main(void)
           {
             //ACI ReadDynamicData and ACI WriteDynamicData will have status codes of
             //TRANSACTION_CONTINUE and TRANSACTION_COMPLETE
-            //all other ACI commands will have status code of ACI_STATUS_SCUCCESS for a successful command
+            //all other ACI commands will have status code of ACI_STATUS_SCUCCESS 
+            //for a successful command
             printf("ACI Command 0x");
             printf("%x", aci_evt->params.cmd_rsp.cmd_opcode);
             printf("Evt Cmd respone: Error. Arduino is in an while(1); loop");

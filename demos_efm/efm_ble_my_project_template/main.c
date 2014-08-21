@@ -134,7 +134,8 @@ void setupACI(void)
   
   /* We initialize the data structures required to setup the nRF8001
   */
-  //The second parameter is for turning debug printing on for the ACI Commands and Events so they be printed on the Serial
+  //The second parameter is for turning debug printing on for the ACI Commands and Events 
+  //so they be printed on the Serial
   lib_aci_init(&aci_state, true);
   
   printf("nRF8001 Reset done\n");
@@ -213,7 +214,8 @@ static bool setup_required = false;
         {
           //ACI ReadDynamicData and ACI WriteDynamicData will have status codes of
           //TRANSACTION_CONTINUE and TRANSACTION_COMPLETE
-          //all other ACI commands will have status code of ACI_STATUS_SCUCCESS for a successful command
+          //all other ACI commands will have status code of ACI_STATUS_SCUCCESS for 
+          //a successful command
           printf("ACI Command ");
           printf("%x", aci_evt->params.cmd_rsp.cmd_opcode);
           printf("Evt Cmd respone: Error. Arduino is in an while(1); loop\n");
@@ -243,8 +245,8 @@ static bool setup_required = false;
         printf("%x\n", aci_evt->params.pipe_error.error_code);
 
         //Increment the credit available as the data packet was not sent.
-        //The pipe error also represents the Attribute protocol Error Response sent from the peer and that should not be counted
-        //for the credit.
+        //The pipe error also represents the Attribute protocol Error Response sent from the peer 
+        //and that should not be counted for the credit.
         if (ACI_STATUS_ERROR_PEER_ATT_ERROR != aci_evt->params.pipe_error.error_code)
         {
           aci_state.data_credit_available++;
