@@ -55,9 +55,9 @@ Tools
 References
 ----------
 
-    [nRF8001 datasheet](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF8001)
+[nRF8001 datasheet](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF8001)
     
-    [Webinars and FAQ when getting started] (https://devzone.nordicsemi.com/question/4933/write-services-to-nrf-8001/?answer=4974#post-id-4974)
+[Webinars and FAQ when getting started](https://devzone.nordicsemi.com/question/4933/write-services-to-nrf-8001/?answer=4974#post-id-4974)
     
 
     
