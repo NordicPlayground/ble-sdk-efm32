@@ -1,10 +1,14 @@
-ble-sdk-efm32-internal
-======================
+Bluetooth low energy SDK for efm32
+==================================
 
 Port of the Bluetooth low energy SDK for Arduino to the EFM32.
-It has been tested using nRF2741 module connected to EFM32 Leopard Gecko Starter Kit(STK3600).
+This uses the Nordic Semiconductor nRF8001. It has been tested using 
+nRF2741 module connected to EFM32 Leopard Gecko Starter Kit(STK3600).
+The nRF2741 is part of the nRF8001 Development kit.
+Alternatively you can use an [nRF8001 breakout board](http://www.adafruit.com/products/1697) or [shield](http://www.seeedstudio.com/depot/bluetooth-40-low-energy-ble-shield-v20-p-1631.html).
 
-Port is not backward compatible with Arduino, so all Arduino related files were deleted.
+
+This port is not backward compatible with Arduino, so all Arduino related files were deleted.
 If you are interested in those files please check original repo: [ble-sdk-arduino](https://github.com/NordicSemiconductor/ble-sdk-arduino)
 
 Contents
@@ -43,8 +47,15 @@ Quick start guide
             1. Open printf viewer via 'View'->'Serial Windows'->'Debug (printf) Viewer'
             2. Run program and enjoy printf() output
 
-        
+Tools
+-----
 
+[nRFgo Studio for developing GATT Clients and Services for nRF8001](http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRFgo-Studio/(language)/eng-GB)
+        
+References
+----------
+    [nRF8001 datasheet](https://www.nordicsemi.com/eng/Products/Bluetooth-Smart-Bluetooth-low-energy/nRF8001)
+    [Webinars and FAQ when getting started](https://devzone.nordicsemi.com/question/4933/write-services-to-nrf-8001/?answer=4974#post-id-4974)
 
     
 
