@@ -50,7 +50,7 @@ Quick start guide
 Tools
 -----
 
-[nRFgo Studio for developing GATT Clients and Services for nRF8001](http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRFgo-Studio/(language)/eng-GB)
+[nRFgo Studio for developing GATT Clients and Services for nRF8001](http://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRFgo-Studio)
         
 References
 ----------
